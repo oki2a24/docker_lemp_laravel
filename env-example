@@ -1,0 +1,41 @@
+###########################################################
+###################### General Setup ######################
+###########################################################
+
+### Paths #################################################
+
+# Point to the path of your applications code on your host
+APP_CODE_PATH_HOST=../
+
+# Point to where the `APP_CODE_PATH_HOST` should be in the container. You may add flags to the path `:cached`, `:delegated`. When using Docker Sync add `:nocopy`
+APP_CODE_PATH_CONTAINER=/var/www:cached
+
+# Choose storage path on your machine. For all storage systems
+#DATA_PATH_HOST=~/.docker_lamp_laravel/data
+
+### PHP Version ###########################################
+
+# Select a PHP version. Accepted values: 7.2 - 7.1 - 7.0 - 5.6
+PHP_VERSION=7.2
+
+###########################################################
+################ Containers Customization #################
+###########################################################
+
+### WORKSPACE #############################################
+
+WORKSPACE_TIMEZONE=Japan
+
+### MYSQL #################################################
+
+MYSQL_VERSION=latest
+MYSQL_DATABASE=default
+MYSQL_USER=default
+MYSQL_PASSWORD=secret
+MYSQL_PORT=3306
+MYSQL_ROOT_PASSWORD=root
+MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+
+### Node.js  #################################################
+
+NODE_VERSION=10

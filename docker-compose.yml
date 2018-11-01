@@ -1,0 +1,76 @@
+version: '3.5'
+
+networks:
+  backend:
+    name: backend
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        TZ: ${WORKSPACE_TIMEZONE}
+    environment:
+      - TZ=${WORKSPACE_TIMEZONE}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    networks:
+      - backend
+
+  php_apache:
+    build:
+      context: ./php_apache
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        TZ: ${WORKSPACE_TIMEZONE}
+    environment:
+      - TZ=${WORKSPACE_TIMEZONE}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    networks:
+      - backend
+
+  mysql:
+    build:
+      context: ./mysql
+      args:
+        MYSQL_VERSION: ${MYSQL_VERSION}
+        TZ: ${WORKSPACE_TIMEZONE}
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=${WORKSPACE_TIMEZONE}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  composer:
+    build:
+      context: ./composer
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/app
+
+  node:
+    build:
+      context: ./node
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/root
