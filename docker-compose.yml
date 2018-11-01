@@ -22,24 +22,41 @@ services:
       - 443:443
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    depends_on:
+      - php_fpm
     networks:
       - backend
 
-  php_apache:
+  php_fpm:
     build:
-      context: ./php_apache
+      context: ./php_fpm
       args:
         PHP_VERSION: ${PHP_VERSION}
         TZ: ${WORKSPACE_TIMEZONE}
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
     ports:
-      - 80:80
-      - 443:443
+      - 9000:9000
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
     networks:
       - backend
+
+        #  php_apache:
+        #    build:
+        #      context: ./php_apache
+        #      args:
+        #        PHP_VERSION: ${PHP_VERSION}
+        #        TZ: ${WORKSPACE_TIMEZONE}
+        #    environment:
+        #      - TZ=${WORKSPACE_TIMEZONE}
+        #    ports:
+        #      - 80:80
+        #      - 443:443
+        #    volumes:
+        #      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+        #    networks:
+        #      - backend
 
   mysql:
     build:
