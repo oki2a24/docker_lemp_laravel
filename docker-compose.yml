@@ -8,6 +8,8 @@ networks:
 volumes:
   db_data:
     driver: local
+  php_sockert:
+    driver: local
 
 services:
   nginx:
@@ -22,6 +24,7 @@ services:
       - 443:443
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+      - php_sockert:/var/run
     depends_on:
       - php_fpm
     networks:
@@ -37,6 +40,7 @@ services:
       - TZ=${WORKSPACE_TIMEZONE}
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+      - php_sockert:/var/run
     networks:
       - backend
 
