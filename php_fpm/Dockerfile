@@ -22,5 +22,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./php.ini /usr/local/etc/php/
 #COPY ./sites-available/ /etc/apache2/sites-available/
+COPY ./php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/
 
 WORKDIR /var/www
