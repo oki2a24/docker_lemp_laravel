@@ -122,5 +122,4 @@ docker-compose run --rm node npm run watch
 
 
 # TODO
-- http アクセスを https へリダイレクトする
 - Nginx PHP-FPM 接続を UNIX ドメインソケット化
