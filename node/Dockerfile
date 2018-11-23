@@ -1,3 +1,3 @@
 ARG NODE_VERSION
 FROM node:${NODE_VERSION}
-WORKDIR /root
+WORKDIR /var/www
