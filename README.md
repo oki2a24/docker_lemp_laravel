@@ -119,7 +119,3 @@ docker-compose run --rm node npm run dev
 # アセット変更の監視
 docker-compose run --rm node npm run watch
 ```
-
-
-# TODO
-- Nginx PHP-FPM 接続を UNIX ドメインソケット化
