@@ -12,8 +12,8 @@ APP_CODE_PATH_CONTAINER=/var/www:cached
 
 ### PHP Version ###########################################
 
-# Select a PHP version. Accepted values: 7.2 - 7.1 - 7.0 - 5.6
-PHP_VERSION=7.2
+# Select a PHP version. Accepted values: 7 - 7.x  - 5.6
+PHP_VERSION=7
 
 ###########################################################
 ################ Containers Customization #################
