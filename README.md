@@ -36,7 +36,7 @@ cp env-example .env
 ```
 
 `APP_CODE_PATH_HOST` の値を設定します。この名前は、Laravel のプロジェクト名となります。
-今回の例のような場合は次のように編集します。
+`app/` に作成するディレクトリ名となりますので、今回の例の場合は次のように編集します。
 
 ```
 APP_CODE_PATH_HOST=../blog/
@@ -55,7 +55,7 @@ Laravel プロジェクトをインストールします。
 [インストール 5.5 Laravel](https://readouble.com/laravel/5.5/ja/installation.html) を見ると、`blog` とディレクトリを指定していますが、ここでは `.` と指定しています。
 `blog` と指定した場合、`blog` ディレクトリを作成し、その中へ Laravel をインストールします。
 `.` と指定した場合、現在のディレクトリへ Laravel をインストールします。
-`.env` に blog と設定しているため、インストールコマンドを実行するディレクトリは `blog` となります。
+`.env` に `APP_CODE_PATH_HOST=../blog/` と設定しているため、インストールコマンドを実行するディレクトリは `docker_lemp_laravel_blog/../blog/` となります。
 したがって、コマンド実行時は `blog` ではなく `.` を指定します。
 
 ```bash
@@ -67,7 +67,7 @@ docker-compose run --rm composer composer create-project --prefer-dist laravel/l
 最低でも次の値を設定する必要があります。
 
 ```
-DB_HOST=mysql # docker-compose.yml の services を設定
+DB_HOST=mysql # docker-compose.yml の services の値である mysql を設定
 DB_DATABASE=default # docker_lanmp_laravel/.env の MYSQL_DATABASE 値を設定
 DB_USERNAME=default # docker_lanmp_laravel/.env の MYSQL_USER 値を設定
 DB_PASSWORD=secret # docker_lanmp_laravel/.env の MYSQL_PASSWORD 値を設定
@@ -86,7 +86,7 @@ php artisan migrate
 
 ```bash
 docker-compose exec mysql bash
-mysql -u root -p"$MYSQL_ROOT_PASSWORD"
+mysql -u root -p${MYSQL_ROOT_PASSWORD}
 ```
 
 ### 補足。アセットコンパイルに関する操作方法
