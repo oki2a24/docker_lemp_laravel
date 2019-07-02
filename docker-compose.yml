@@ -39,6 +39,8 @@ services:
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
     volumes:
+      - ./php_fpm/php/php.ini:/usr/local/etc/php/php.ini
+      - ./php_fpm/php-fpm.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - php_sockert:/var/run
     networks:
